@@ -1,0 +1,13 @@
+METHOD:
+  name_method: 'ALPHA_AM'
+  temp: 15
+  alpha: 0.8
+  K: 20
+  loss_weights: [1.0, 1.0, 1.0]  # [Xent, H(Y), H(Y|X)]
+  lr_lp: 1e-4
+  iter: 1000
+  entropies: ['Shannon', 'Alpha', 'Alpha'] #['Shannon', 'Alpha', 'Alpha'] # [Xent, H(Y), H(Y|X)]
+  alpha_values: [1.0, 1.0, 1.0] # [Xent, H(Y), H(Y|X)]
+  PLC: False
+  use_tuned_alpha_values: True
+  phi: "mus+G+Wb"

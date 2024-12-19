@@ -1,0 +1,15 @@
+METHOD:
+  name_method: 'U_PADDLE'
+  n_layers: 10
+
+
+  # 1.769
+  #-0.289
+
+  #uniform
+  #1.583
+  #0.049
+
+  # uniform no T,
+  #5 shot 1.60
+  #10 shot 1.54

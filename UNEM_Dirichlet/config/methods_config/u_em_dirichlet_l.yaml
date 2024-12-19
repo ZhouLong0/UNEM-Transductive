@@ -1,0 +1,9 @@
+METHOD:
+  name_method: 'U_EM_DIRICHLET_L'
+  iter: 10
+  lambd: 0  
+  iter_mm: 1000
+  acc_clustering: True
+  fact: 1.0
+  graph_matching: True
+  tunable: False

@@ -1,0 +1,34 @@
+EVAL:
+    evaluate: True                  # if True, evaluate methods
+    dataset: 'mini'                 # ('mini', 'tiered', 'inatural')
+    arch: 'resnet18'                # ('resnet18', 'wideres')
+    model_tag: 'best'               # ('final', 'best')
+    method: 'u_paddle_embt_l'                # ('paddle', 'paddle_gd', 'tim', 'alpha_tim', 'bdcspn', 'laplacianshot', 'ici', 'pt_map', 'baseline', 'baseline_pp', 'soft_km', u_paddle_id, u_paddle_l)
+    k_eff: 5                        # number of different classes represented in the query
+    n_ways : 'full'                 # 'full' for all test classes (i.e. K), or integer. Eg. n_ways = k_eff corresponds to the standard setting
+    n_query: 75                     # total number of images in query
+    shots: [1, 5, 10, 20]                # number of shots for which evaluation is performed
+    sampling: 'uniform'             # ('balanced' | 'dirichlet' | 'uniform') sampling of the query
+    alpha_dirichlet: 1              # if sampling == 'dirichlet', dirichlet parameter
+    number_tasks: 1000              # number of tasks to evaluate
+    batch_size: 200                # number of tasks per batch
+    used_set_support: 'test'        # ('test', 'val') for mini and tiered, 'repr' for inatural
+    used_set_query: 'test'          # ('test', 'val') for mini and tiered, 'query' for inatural
+    fresh_start: False              # if False, loads the previously extracted features  
+    tune_parameters: False          # if True, saves method parameter and corresponding accuracies in .txt file located at Results/params
+    save_results: True             # if True, saves K_eff and corresponding accuracies in .txt file located at Results/test
+    ablation: False                 # if True, convergence ablation
+    acc_vs_gamma_study: False
+    #n_layers: 10
+    minimax_scaler: False
+
+
+U_TRAIN:
+    train_unrolling: False
+    train_method: U_PADDLE_EMBT_L
+    train_iter: 100
+    # train_tasks: 10000
+    # train_batch_size: 100
+    train_samples: 1000
+    train_lr: 0.1
+    train_n_layers: 10

@@ -1,0 +1,6 @@
+dataset,lambda,t2
+Mini-Imagenet Resnet18,3.1279,-1.2177
+Mini-Imagenet WRN28-10,3.2286,-0.5505
+Tiered-Imagenet Resnet18,2.4853,-0.7510
+Tiered-Imagenet WRN28-10,2.3541,-0.4851
+CUB Resnet18,2.9657,-1.0291

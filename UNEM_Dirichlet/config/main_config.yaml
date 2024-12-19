@@ -1,0 +1,30 @@
+EVAL:
+    dataset: 'caltech101'        # Choose from: oxfordpets, eurosat, ucf101, caltech101, dtd, fgvcaircraft, food101, flowers102, stanfordcars, sun397
+    method: 'em_dirichlet'       
+                                 # For few-shot: 'em_dirichlet', 'hard_em_dirichlet', 'paddle', 'alpha_tim', 'laplacian_shot', 'bdcspn', 'alpha_am'
+                                 # For unrolled: 'u_em_dirichlet', 'u_em_dirichlet_l', 'u_em_dirichlet_embt_l', 'u_em_dirichlet_embt'
+    number_tasks: 1000              # Number of tasks to evaluate
+    batch_size: 100                # Batch size for the evaluation      #10 for sun397
+    k_eff: 5                     # Number of different classes represented in the query
+    n_query: 75                  # Number of samples in the query set
+    shots: 4                     # Number of shots
+    log_path: '.log/'
+    save_results: True           # Save the results in a .txt file in results_zero_shot/ and results_few_shot/
+    used_test_set: 'test'        # Choose between 'val' or 'test'
+    device: 0
+    T: 30                        # Temperature for defining the features
+    backbone: 'RN50'             # CLIP's pretrained backbone
+    use_softmax_feature: True    # True to use the softmax features, False to use the visual embeddings directly
+    acc_vs_gamma_study: False
+
+
+U_TRAIN:
+    u_train: False
+    u_train_lr: 0.5
+    u_train_epochs: 80
+    utrain_number_tasks: 100
+    utrain_batch_size: 15
+    u_train_drop_step: 40
+    u_train_drop_factor: 0.5
+    used_utrain_set: 'val'
+    u_train_n_query: 75

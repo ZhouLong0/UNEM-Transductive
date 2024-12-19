@@ -1,0 +1,28 @@
+*.zip
+*.pt
+*.plk
+*.gz
+data/
+logs
+results/
+*.DS_Store
+__pycache__/
+*/__pycache__/
+*/*/__pycache__/
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/
+*/*/.ipynb_checkpoints/
+
+results_few_shot/
+results_zero_shot/
+results_few_shot_old/
+results_zero_shot/
+results_zero_shot/test/
+scripts/
+u_params_new/
+old/
+
+# Ignore everything in u_params subdirectories
+u_params/*/*/*/*
+# Allow .pt files only in u_params subdirectories
+!u_params/*/*/*/*.pt
