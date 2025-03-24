@@ -9,3 +9,4 @@ from .fgvcaircraft import FGVCAircraft
 from .food101 import Food101
 from .flowers102 import Flowers102
 from .stanfordcars import StanfordCars
+from .imagenet import ImageNet

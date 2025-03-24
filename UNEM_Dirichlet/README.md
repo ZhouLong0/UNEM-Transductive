@@ -19,7 +19,7 @@ This folder contains the code for our paper "UNEM: UNrolled Generalized EM for T
 
 
 ### 1.2 Download datasets and splits
-For downloading the datasets and splits, we follow the instructions given in the Github repository of [TIP-Adapter](https://github.com/gaopengcuhk/Tip-Adapter). We use train/val/test splits from [CoOp's Github](https://github.com/KaiyangZhou/CoOp) for all datasets.
+For downloading the datasets and splits, we follow the instructions given in the Github repository of [TIP-Adapter](https://github.com/gaopengcuhk/Tip-Adapter) and use train/val/test splits from [CoOp's Github](https://github.com/KaiyangZhou/CoOp) for all datasets besides imagenet. For imagenet our split is already placed in data/imagenet.
 
 The downloaded datasets should be placed in the folder data/ the following way:
 
@@ -35,12 +35,16 @@ The downloaded datasets should be placed in the folder data/ the following way:
     │   ├── ucf101       
     │   ├── fgvcaircraft                
     │   ├── stanfordcars      
-    │   ├── sun397        
+    │   ├── sun397   
+    │   ├── imagenet 
+    │       ├── val
+    │       ├── train
+    │            ├── extracted class folders
     │                 
     └── ...
 
 
-## 2. Reproducing the few-shot results
+## 2. Reproducing the main results (Table 3)
 
 You can reproduce the results displayed in Table 2 in the paper by using the ```config/main_config.yaml``` file. Small variations in the results may be observed due to the randomization of the tasks.
 
@@ -60,7 +64,7 @@ For example, to run the method UNEM-Dirichlet on Caltech101 on 1000 realistic tr
 python main.py --opts shots 4 dataset caltech101 batch_size 100 number_tasks 1000 method u_em_dirichlet_embt_l u_train False
 ```
 
-To train again the parameters of UNEM-Dirichlet:
+To train from scratch the parameters of UNEM-Dirichlet:
 ```python
 python main.py --opts shots 4 dataset <dataset> method u_em_dirichlet_embt_l u_train True
 ```

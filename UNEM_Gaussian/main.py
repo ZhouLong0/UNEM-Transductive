@@ -107,7 +107,7 @@ def main():
         u_trainer.run_training(model=model)
         return
 
-    # If this line is reached, then training the model
+    # If this line is reached, then training the feature extraction model (Resnet or WRN)
     trainer = Trainer(device=device, args=args)
     scheduler = get_scheduler(optimizer=optimizer,
                               num_batches=len(trainer.train_loader),

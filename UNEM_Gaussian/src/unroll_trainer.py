@@ -76,7 +76,7 @@ class U_Trainer:
         results = []
         loss_histories = []
         for shot in self.args.shots:
-            u_paddle = self.get_model_new()
+            u_paddle = self.get_model()
             u_paddle = u_paddle.to(self.device)
 
             #for i in range(int(self.args.train_tasks/self.args.train_batch_size)):
@@ -97,13 +97,19 @@ class U_Trainer:
 
             task_generator = Tasks_Generator(k_eff=self.args.k_eff, n_ways=self.args.n_ways, shot=shot, n_query=self.args.n_query, loader_support=test_loader_support, loader_query=test_loader_query, train_mean=train_mean, log_file=self.log_file)
 
+            # array of size n_tasks containing a dictionary with x_s, y_s, x_q, y_q
             tasks = task_generator.generate_tasks()
 
+            # task_dic = {'x_s': x_s, 'y_s': y_s, 'x_q': x_q, 'y_q': y_q,}
+            # x_s size [n_tasks, n_ways*shot, feature_dim]
+            # y_s size [n_tasks, n_ways*shot]
+            # x_q size [n_tasks, n_query, feature_dim]
+            # y_q size [n_tasks, n_query]
             criterion = torch.nn.CrossEntropyLoss()
             optimizer = torch.optim.Adam(u_paddle.parameters(), lr=self.args.train_lr)
             scheduler = StepLR(optimizer, step_size=50, gamma=0.5)
 
-            u_paddle, loss_history, params_history = training2(u_paddle, tasks, criterion, optimizer, scheduler, self.args.train_iter, self.device)
+            u_paddle, loss_history, params_history = training(u_paddle, tasks, criterion, optimizer, scheduler, self.args.train_iter, self.device)
             #torch.cuda.empty_cache()
 
             results.append(u_paddle)
@@ -142,7 +148,7 @@ class U_Trainer:
                 
         return results
     
-    def get_model_new(self):
+    def get_model(self):
         if self.args.train_method == 'U_PADDLE':
             model = U_Paddle(n_layers=self.args.train_n_layers, device=self.device, log_file=self.log_file, gamma=1.0, verbose=False, diff_gamma_layers=False)
         elif self.args.train_method == 'U_PADDLE_L':
@@ -189,7 +195,7 @@ class MinMaxScaler(object):
     
 
 
-def training2(u_padnet, task_dic, criterion, optimizer, scheduler, epochs, device):
+def training(u_padnet, task_dic, criterion, optimizer, scheduler, epochs, device):
     import torch.nn as nn
     y_s, y_q = task_dic['y_s'], task_dic['y_q']
     x_s, x_q = task_dic['x_s'], task_dic['x_q']

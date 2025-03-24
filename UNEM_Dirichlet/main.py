@@ -48,6 +48,8 @@ def main():
 
     # create model
     model, preprocess = clip.load(args.backbone, device)
+    args.backbone = args.backbone.replace('/', '') # remove '/' from model name otherwise error when using it as path
+
     log_file = get_log_file(log_path=args.log_path,
                             dataset=args.dataset, method=args.name_method)
     logger = Logger(__name__, log_file)
@@ -61,6 +63,7 @@ def main():
         evaluator = Evaluator_few_shot(device=device, args=args, log_file=log_file)
     else:
         raise ValueError('Invalid number of shots')
+    
     evaluator.run_full_evaluation(model=model, preprocess=preprocess)
 
 

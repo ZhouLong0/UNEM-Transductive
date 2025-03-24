@@ -68,33 +68,53 @@ class U_Paddle(nn.Module):
         return Us
     
     def forward(self, Z_support, Y_support, Z_query, device):
+        """
+        Runs UNEM on a task (support and query set) 
+
+        params:
+            Z_query: torch.tensor of shape (Q_size, d) 
+            Z_support: torch.tensor of shape (n_classes * n_shots, d)
+            Y_support: torch.tensor of shape (n_classes * n_shots)
+        """
         Z_query = Z_query.to(device)
         Z_support = Z_support.to(device)
         Y_support = Y_support.to(device)
         U_support = self.get_one_hot(Y_support).to(device)
         #U_support = F.one_hot(Y_support.long()).to(device)  
+
+
         k = len(torch.unique(Y_support))
         n_task, n_ways = Z_support.size(0), U_support.size(2)
 
+        # Initialize the centroids with the support set
         W = self.init_w(Z_support, Y_support).to(device)
 
+        # Initialize the class proportions
         V = torch.zeros(n_task, n_ways).to(device)+1
 
         n_query = Z_query.size(1)
         n_tasks = Z_query.size(0)
 
         for i in tqdm(range(self.n_layers)):
+            # ratio of the class proportions
             gamma = self.gamma[i] if self.diff_gamma_layers else self.gamma
+
+            # update the logits
             logits = (Z_query.matmul(W.transpose(1, 2)) \
                     - 1 / 2 * (W**2).sum(2).view(n_tasks, 1, -1) \
                     - 1 / 2 * (Z_query**2).sum(2).view(n_tasks, -1, 1))
 
+            # update the assignment matrix
             U_new = (logits + gamma * (V.unsqueeze(1).repeat(1, n_query, 1))).softmax(2)
+
+            # update the class proportions
             V = torch.log(U_new.sum(1) / n_query + 1e-6) + 1
 
             num = torch.einsum('bkq,bqd->bkd',torch.transpose(U_new, 1, 2), Z_query) \
                     + torch.einsum('bkq,bqd->bkd',torch.transpose(U_support, 1, 2), Z_support)
             den  = U_new.sum(1) + U_support.sum(1)
+
+            # update the centroids
             W = torch.div(num, den.unsqueeze(2))
         
         return U_new
@@ -147,7 +167,6 @@ class U_Paddle(nn.Module):
         with torch.no_grad():
             Us = self.forward(support, y_s, query, self.device)
             # Compute accuracy
-
             preds_q = Us.argmax(2)
             accuracy = (preds_q == y_q).float().mean(1, keepdim=True).cpu().numpy()
             if self.verbose:

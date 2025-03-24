@@ -1,5 +1,5 @@
 EVAL:
-    dataset: 'caltech101'        # Choose from: oxfordpets, eurosat, ucf101, caltech101, dtd, fgvcaircraft, food101, flowers102, stanfordcars, sun397
+    dataset: 'caltech101'        # Choose from: oxfordpets, eurosat, ucf101, caltech101, dtd, fgvcaircraft, food101, flowers102, stanfordcars, sun397, imagenet
     method: 'em_dirichlet'       
                                  # For few-shot: 'em_dirichlet', 'hard_em_dirichlet', 'paddle', 'alpha_tim', 'laplacian_shot', 'bdcspn', 'alpha_am'
                                  # For unrolled: 'u_em_dirichlet', 'u_em_dirichlet_l', 'u_em_dirichlet_embt_l', 'u_em_dirichlet_embt'

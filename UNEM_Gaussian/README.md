@@ -47,7 +47,7 @@ For the datasets and pre-trained models, please download it by following this [r
 
 
 
-## 3. Reproducing the few-shot results
+## 3. Reproducing the main results (Table 1-2)
 
 You can reproduce the main results displayed in the paper by using the ```config/main_config.yaml``` file. Small variations in the results may be observed due to the randomization of the tasks.
 

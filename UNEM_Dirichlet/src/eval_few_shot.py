@@ -3,7 +3,7 @@ import numpy as np
 
 # Import utilities and datasets
 from src.utils import Logger, load_pickle, extract_features_softmax, extract_features_visual, compute_confidence_interval, extract_features_pre_softmax
-from src.datasets import OxfordPets, EuroSAT, UCF101, SUN397, Caltech101, DescribableTextures, FGVCAircraft, Food101, Flowers102, StanfordCars
+from src.datasets import OxfordPets, EuroSAT, UCF101, SUN397, Caltech101, DescribableTextures, FGVCAircraft, Food101, Flowers102, StanfordCars, ImageNet
 from src.datasets import build_data_loader
 from src.task_generator_few_shot import Tasks_Generator_few_shot
 from src.sampler_few_shot import CategoriesSampler_few_shot, SamplerQuery_few_shot, SamplerSupport_few_shot
@@ -33,6 +33,7 @@ dataset_list = {
     "food101": Food101,
     "flowers102": Flowers102,
     "stanfordcars": StanfordCars,
+    "imagenet": ImageNet
 }
 
 

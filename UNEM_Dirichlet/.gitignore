@@ -2,7 +2,6 @@
 *.pt
 *.plk
 *.gz
-data/
 logs
 results/
 *.DS_Store
