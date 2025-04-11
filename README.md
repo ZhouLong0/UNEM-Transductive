@@ -5,7 +5,7 @@
 
 
 ##  Introduction
-This repository contains the code for our paper "UNEM: UNrolled Generalized EM for Transductive Few-Shot Learning".
+🚀 This repository contains the code for our paper "UNEM: UNrolled Generalized EM for Transductive Few-Shot Learning" accepted to CVPR 2025!
 
 Usage instructions for Visual only methods (Tables 1-2) are located in the [EM-Gaussian folder](UNEM_Gaussian/).
 
